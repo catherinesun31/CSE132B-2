@@ -1,0 +1,17 @@
+/* Styles */
+#app {
+  font-family: Verdana, Geneva, sans-serif;
+  margin: 0;
+}
+
+a.active {
+  color: orange;
+}
+
+nav {
+  padding-top: 0;
+}
+
+.container-fluid {
+  padding: 0;
+}
