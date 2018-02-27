@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import { Link, IndexLink } from 'react-router';
 import LoadingDots from './LoadingDots';
+import LoginControl from './LoginControl';
 import '../../styles/main-stylesheet.css';
 import mainLogo from'../../img/logo.png';
 
@@ -17,11 +18,11 @@ const Header = ({loading}) => {
     <div className="nav">
       <img src={mainLogo} className="logo"></img>
       
-      <div className="options">
-        <a href="pages/sign-in.html">Sign In</a>
-        <a> or </a>
-        <a href="pages/sign-up.html">Sign Up</a>
+      <div className="title">
+        <h2 id="aptTitle"></h2>
       </div>
+
+      <LoginControl />
     </div>
   );
 };
