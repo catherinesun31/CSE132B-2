@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import Header from '../common/Header';
+import ProfileModal from '../common/ProfileModal';
 
 
 class OfficePage extends React.Component {
@@ -9,6 +10,7 @@ class OfficePage extends React.Component {
       <div>
         <Header loggedOn/>
         o hullo
+        <ProfileModal />
       </div>
     );
   }
