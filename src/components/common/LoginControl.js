@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import { Link } from 'react-router';
 import ProfileOptions from './ProfileOptions';
 import StartOptions from './StartOptions';
@@ -14,7 +14,7 @@ class LoginControl extends React.Component {
 
   render() {
 
-    const isLoggedIn = this.state.isLoggedIn;
+    const isLoggedIn = this.props.loggedOn;
 
     let options = null;
     if (isLoggedIn) {
@@ -30,6 +30,12 @@ class LoginControl extends React.Component {
     );
   }
 }
+
+
+LoginControl.propTypes = {
+  loggedOn: PropTypes.bool
+};
+
 
 
 export default LoginControl;

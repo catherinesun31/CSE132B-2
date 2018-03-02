@@ -1,6 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {browserHistory} from 'react-router';
 import TextInput from '../common/TextInput';
+import Header from '../common/Header';
 import '../../styles/account-stylesheet.css';
 
 let apartments = ["Axiom La Jolla", "Casa Mira View", "Costa Verde", 
@@ -89,11 +90,11 @@ class Login extends React.Component {
 
     if (user.isLeasingRep) {
 
-      window.location.href = "office/app-turnin.html";
+      browserHistory.push("/office");
     
     } else {
 
-      window.location.href = "group.html";
+      browserHistory.push("/renter");
     }
   }
 
@@ -177,43 +178,47 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="box-holder">
-        <div className="box-container">
-          <div className="box-header">
-            <h3>Account Sign In</h3>
-          </div>
-          <div className="box-body">
-            <form className="input-form" action="/action_page.php">
-              <div className="input-title">Apartment Complex:</div>
-              <TextInput
-                list="apts"
-                type="text"
-                name="Apartment Complex:"
-                value={this.state.apt}
-                onChange={this.setApt} />
-              <datalist id="apts">
-              </datalist>
-              <div className="input-title">Username:</div>
-              <TextInput
-                name="userid"
-                type="text"
-                value={this.state.userName}
-                onChange={this.setUserName} />
-              <div className="input-title">Password:</div>
-              <TextInput
-                name="password"
-                type="password"
-                value={this.state.password}
-                onChange={this.setPassword} />
-              <div className="check-box">
-                <input type="checkbox" name="leasing-rep" value={this.state.leasingRep} id="leasing-rep-input"/>Leasing Representative
-              </div>
-              <br/>
-              <input type="button" onClick={this.signIn} value="Sign In" name="sign-in" className="button"/>
-            </form>
+      <div> 
+        <Header />
+        <div className="box-holder">
+          <div className="box-container">
+            <div className="box-header">
+              <h3>Account Sign In</h3>
+            </div>
+            <div className="box-body">
+              <form className="input-form" action="/action_page.php">
+                <div className="input-title">Apartment Complex:</div>
+                <TextInput
+                  list="apts"
+                  type="text"
+                  name="Apartment Complex:"
+                  value={this.state.apt}
+                  onChange={this.setApt} />
+                <datalist id="apts">
+                </datalist>
+                <div className="input-title">Username:</div>
+                <TextInput
+                  name="userid"
+                  type="text"
+                  value={this.state.userName}
+                  onChange={this.setUserName} />
+                <div className="input-title">Password:</div>
+                <TextInput
+                  name="password"
+                  type="password"
+                  value={this.state.password}
+                  onChange={this.setPassword} />
+                <div className="check-box">
+                  <input type="checkbox" name="leasing-rep" value={this.state.leasingRep} id="leasing-rep-input"/>Leasing Representative
+                </div>
+                <br/>
+                <input type="button" onClick={this.signIn} value="Sign In" name="sign-in" className="button"/>
+              </form>
+            </div>
           </div>
         </div>
       </div>
+      
     );
   }
 }

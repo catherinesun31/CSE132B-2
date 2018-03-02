@@ -7,6 +7,8 @@ import CoursesPage from './components/course/CoursesPage';
 import ManageCoursePage from './components/course/ManageCoursePage'; //eslint-disable-line import/no-named-as-default
 import Login from './components/entry/Login';
 import SignUp from './components/entry/SignUp';
+import RenterPage from './components/renter/RenterPage';
+import OfficePage from './components/office/OfficePage';
 
 export default (
   <Route path="/" component={App}>
@@ -17,5 +19,7 @@ export default (
     <Route path="about" component={AboutPage} />
     <Route path="login" component={Login} />
     <Route path="signup" component={SignUp} />
+    <Route path="renter" component={RenterPage} />
+    <Route path="office" component={OfficePage} /> 
   </Route>
 );

@@ -1,6 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {browserHistory} from 'react-router';
 import TextInput from '../common/TextInput';
+import CheckBoxInput from '../common/CheckBoxInput';
+import Header from '../common/Header';
 import '../../styles/account-stylesheet.css';
 
 let apartments = ["Axiom La Jolla", "Casa Mira View", "Costa Verde", 
@@ -51,6 +53,7 @@ class SignUp extends React.Component {
     this.setEmail = this.setEmail.bind(this);
     this.setfName = this.setfName.bind(this);
     this.setlName = this.setlName.bind(this);
+    this.setLeasingRep = this.setLeasingRep.bind(this);
   }
 
   componentDidMount () {
@@ -97,13 +100,13 @@ class SignUp extends React.Component {
       return;
     }
 
-    if (leasingRepInput.checked) {
+    if (leasingRepInput) {
 
-      window.location.href = "office/app-turnin.html";
+      browserHistory.push("/office");
     
     } else {
 
-      window.location.href = "group.html";
+      browserHistory.push("/renter");
     }
     
   }
@@ -200,63 +203,75 @@ class SignUp extends React.Component {
     });
   }
 
+  setLeasingRep (isLeasingRep) {
+    this.setState((prevState) => {
+      return {leasingRep: isLeasingRep};
+    });
+  }
+
   render() {
     return (
-      <div className="box-holder">
-        <div className="long-box-container">
-          <div className="box-header">
-            <h3>Create Account</h3>
-          </div>
-          <div className="box-body">
-            <form className="input-form">
-            <div className="input-title">Apartment Complex:</div>
-            <TextInput
-                list="apts"
-                type="text"
-                name="Apartment Complex:"
-                value={this.state.apt}
-                onChange={this.setApt} />
-              <datalist id="apts">
-              </datalist>
-              <div className="input-title">First Name:</div>
+
+      <div>
+        <Header />
+        <div className="box-holder">
+          <div className="long-box-container">
+            <div className="box-header">
+              <h3>Create Account</h3>
+            </div>
+            <div className="box-body">
+              <form className="input-form">
+              <div className="input-title">Apartment Complex:</div>
               <TextInput
-                name="fname"
-                type="text"
-                value={this.state.fName}
-                onChange={this.setfName} />
-              <div className="input-title">Last Name:</div>
-              <TextInput
-                name="lname"
-                type="text"
-                value={this.state.lName}
-                onChange={this.setlName} />
-              <div className="input-title">Username:</div>
-              <TextInput
-                name="userid"
-                type="text"
-                value={this.state.userName}
-                onChange={this.setUserName} />
-              <div className="input-title">Email:</div>
-              <TextInput
-                name="email"
-                type="text"
-                value={this.state.email}
-                onChange={this.setEmail} />
-              <div className="input-title">Password:</div>
-              <TextInput
-                name="password"
-                type="password"
-                value={this.state.password}
-                onChange={this.setPassword} />
-              <div className="check-box">
-                <input type="checkbox" name="leasing-rep" id="leasing-rep-input" value="leasing-rep"/>Leasing Representative
-              </div>
-              <br/>
-              <input type="button" onClick={this.signUp} value="Create Account" name="submit" className="button"/>
-            </form>
-          </div>
-        </div>  
+                  list="apts"
+                  type="text"
+                  name="Apartment Complex:"
+                  value={this.state.apt}
+                  onChange={this.setApt} />
+                <datalist id="apts">
+                </datalist>
+                <div className="input-title">First Name:</div>
+                <TextInput
+                  name="fname"
+                  type="text"
+                  value={this.state.fName}
+                  onChange={this.setfName} />
+                <div className="input-title">Last Name:</div>
+                <TextInput
+                  name="lname"
+                  type="text"
+                  value={this.state.lName}
+                  onChange={this.setlName} />
+                <div className="input-title">Username:</div>
+                <TextInput
+                  name="userid"
+                  type="text"
+                  value={this.state.userName}
+                  onChange={this.setUserName} />
+                <div className="input-title">Email:</div>
+                <TextInput
+                  name="email"
+                  type="text"
+                  value={this.state.email}
+                  onChange={this.setEmail} />
+                <div className="input-title">Password:</div>
+                <TextInput
+                  name="password"
+                  type="password"
+                  value={this.state.password}
+                  onChange={this.setPassword} />
+                <CheckBoxInput
+                  label="Leasing Representative"
+                  handleCheckboxChange = {this.setLeasingRep}
+                  />
+                <br/>
+                <input type="button" onClick={this.signUp} value="Create Account" name="submit" className="button"/>
+              </form>
+            </div>
+          </div>  
+        </div>
       </div>
+      
     );
   }
 }
