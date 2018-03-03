@@ -12,7 +12,7 @@ class TodoList extends React.Component {
   }
 
   componentDidMount () {
-    this.populateTodoList();
+    //this.populateTodoList();
   }
 
   /**
@@ -36,25 +36,16 @@ class TodoList extends React.Component {
 
     //var array = makeProfileArray(JSON.parse(sessionStorage.getItem("localUserData")));
 
+    const children = [];
+
     for(let i = 0; i < array.length; i++) {
-        // Create the list item:
-        let item = document.createElement('li');
 
         if (array[i].submitted) {
-          item.className = "done";
+          children.push(<li className="done"><Link to={array[i].url}>{array[i].taskName}</Link></li>);
+        } else {
+          children.push(<li><Link to={array[i].url}>{array[i].taskName}</Link></li>);
         }
-
-        let aItem = document.createElement('a');
-
-        aItem.href = array[i].url;
-
-        aItem.appendChild(document.createTextNode(array[i].taskName));
-
-        // Set its contents:
-        item.appendChild(aItem);
-
-        // Add it to the list:
-        list.appendChild(item);
+        
     }
 
     // Finally, return the constructed list:
@@ -63,10 +54,27 @@ class TodoList extends React.Component {
 
   render() {
 
+    let todoList = (this.props.userType == "renter") ?
+      todoListRenter : todoListOffice;
+
+    const children = [];
+
+    for(let i = 0; i < todoList.length; i++) {
+
+        if (todoList[i].submitted) {
+          children.push(<li className="done"><Link to={todoList[i].url}>{todoList[i].taskName}</Link></li>);
+        } else {
+          children.push(<li><Link to={todoList[i].url}>{todoList[i].taskName}</Link></li>);
+        }
+        
+    }
+
     return (
       <div className="check-list">
           <h4>Apartment To Do List</h4>
-          <ul id="check-list"></ul>
+          <ul id="check-list">
+            {children}
+          </ul>
       </div>
     );
   }
@@ -86,56 +94,56 @@ let todoListRenter = [
 	{
 		taskId: 0,
 		taskName: "Create Group",
-		url: "group.html",
+		url: "renter/group",
 		submitted: true,
 		approved: true
 	},
 	{
 		taskId: 1,
 		taskName: "Choose Apartment",
-		url: "choose-apt.html",
+		url: "renter/choose-apt",
 		submitted: true,
 		approved: true
 	},
 	{
 		taskId: 2,
 		taskName: "Turn in Application",
-		url: "app-turnin.html",
+		url: "renter/app-turnin",
 		submitted: false,
 		approved: false
 	},
 	{
 		taskId: 3,
 		taskName: "Make Deposit",
-		url: "deposit.html",
+		url: "renter/deposit",
 		submitted: false,
 		approved: false
 	},
 	{
 		taskId: 4,
 		taskName: "Set Up Utilities",
-		url: "utilities.html",
+		url: "renter/utilities",
 		submitted: false,
 		approved: false
 	},
 	{
 		taskId: 5,
 		taskName: "Get Renters Insurance",
-		url: "rent-insur.html",
+		url: "renter/rent-insur",
 		submitted: false,
 		approved: false
 	},
 	{
 		taskId: 6,
 		taskName: "Turn in Identity Documents",
-		url: "id-turnin.html",
+		url: "renter/id-turnin",
 		submitted: false,
 		approved: false
 	},
 	{
 		taskId: 7,
 		taskName: "Sign Lease",
-		url: "sign-lease.html",
+		url: "renter/sign-lease",
 		submitted: false,
 		approved: false
 	}
@@ -145,21 +153,21 @@ let todoListOffice = [
 	{
 		taskId: 0,
 		taskName: "Approve Apartment Application",
-		url: "app-turnin.html",
+		url: "app-turnin",
 		submitted: true,
 		approved: true
 	},
 	{
 		taskId: 1,
 		taskName: "Approve Deposit",
-		url: "deposit.html",
+		url: "deposit",
 		submitted: false,
 		approved: false
 	},
 	{
 		taskId: 2,
 		taskName: "Approve Utilities",
-		url: "utilities.html",
+		url: "utilities",
 		submitted: false,
 		approved: false
 	}

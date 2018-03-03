@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import Header from '../common/Header';
 import ProfileModal from '../common/ProfileModal';

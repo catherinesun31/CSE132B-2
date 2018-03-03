@@ -9,6 +9,8 @@ import Login from './components/entry/Login';
 import SignUp from './components/entry/SignUp';
 import RenterPage from './components/renter/RenterPage';
 import OfficePage from './components/office/OfficePage';
+import Group from './components/renter/Group';
+import ChooseApt from './components/renter/ChooseApt';
 
 export default (
   <Route path="/" component={App}>
@@ -21,5 +23,7 @@ export default (
     <Route path="signup" component={SignUp} />
     <Route path="renter" component={RenterPage} />
     <Route path="office" component={OfficePage} /> 
+    <Route path="renter/group" component={Group} />
+    <Route path="renter/choose-apt" component={ChooseApt} />
   </Route>
 );
