@@ -94,56 +94,56 @@ let todoListRenter = [
 	{
 		taskId: 0,
 		taskName: "Create Group",
-		url: "renter/group",
+		url: "group",
 		submitted: true,
 		approved: true
 	},
 	{
 		taskId: 1,
 		taskName: "Choose Apartment",
-		url: "renter/choose-apt",
+		url: "choose-apt",
 		submitted: true,
 		approved: true
 	},
 	{
 		taskId: 2,
 		taskName: "Turn in Application",
-		url: "renter/app-turnin",
+		url: "app-turnin",
 		submitted: false,
 		approved: false
 	},
 	{
 		taskId: 3,
 		taskName: "Make Deposit",
-		url: "renter/deposit",
+		url: "deposit",
 		submitted: false,
 		approved: false
 	},
 	{
 		taskId: 4,
 		taskName: "Set Up Utilities",
-		url: "renter/utilities",
+		url: "utilities",
 		submitted: false,
 		approved: false
 	},
 	{
 		taskId: 5,
 		taskName: "Get Renters Insurance",
-		url: "renter/rent-insur",
+		url: "rent-insur",
 		submitted: false,
 		approved: false
 	},
 	{
 		taskId: 6,
 		taskName: "Turn in Identity Documents",
-		url: "renter/id-turnin",
+		url: "id-turnin",
 		submitted: false,
 		approved: false
 	},
 	{
 		taskId: 7,
 		taskName: "Sign Lease",
-		url: "renter/sign-lease",
+		url: "sign-lease",
 		submitted: false,
 		approved: false
 	}
@@ -153,21 +153,21 @@ let todoListOffice = [
 	{
 		taskId: 0,
 		taskName: "Approve Apartment Application",
-		url: "app-turnin",
+		url: "app-turnin-apv",
 		submitted: true,
 		approved: true
 	},
 	{
 		taskId: 1,
 		taskName: "Approve Deposit",
-		url: "deposit",
+		url: "deposit-apv",
 		submitted: false,
 		approved: false
 	},
 	{
 		taskId: 2,
 		taskName: "Approve Utilities",
-		url: "utilities",
+		url: "utilities-apv",
 		submitted: false,
 		approved: false
 	}

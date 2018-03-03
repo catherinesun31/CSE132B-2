@@ -102,11 +102,11 @@ class SignUp extends React.Component {
 
     if (leasingRepInput) {
 
-      browserHistory.push("/office");
+      browserHistory.push("app-turnin-apv");
     
     } else {
 
-      browserHistory.push("/renter");
+      browserHistory.push("group");
     }
     
   }

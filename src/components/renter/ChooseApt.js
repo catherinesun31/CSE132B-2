@@ -15,7 +15,7 @@ import '../../styles/main-stylesheet.css';
 class ChooseApt extends React.Component {
   render() {
     return (
-      <div classNameName="main-body">
+      <div className="main-body">
         <Header loggedOn/>
         <TodoList userType="renter" />
         <ProfileModal />
@@ -31,7 +31,7 @@ class ChooseApt extends React.Component {
                               <img src={apt1} className="apt-pic"/>
                               <div className="apt-info">
                                   <div className="unit-header">
-                                      <a href="apartment1.html">Sea Model Unit 2436</a>
+                                    <Link to="/apt">Sea Model Unit 2436</Link>
                                   </div>
                                   <a>Price: $2330</a>
                                   <a>2 Bed, 2 Bath</a>
@@ -43,7 +43,8 @@ class ChooseApt extends React.Component {
                               <img src={apt2} className="apt-pic"/>
                               <div className="apt-info">
                                   <div className="unit-header">
-                                      <a href="apartment1.html">Sea Model Unit 2436</a>
+                                    <Link to="/apt">Sea Model Unit 2455</Link>
+  
                                   </div>
                                   <a>Price: $2400</a>
                                   <a>2 Bed, 2 Bath</a>
@@ -55,7 +56,7 @@ class ChooseApt extends React.Component {
                               <img src={apt3} className="apt-pic"/>
                               <div className="apt-info">
                                   <div className="unit-header">
-                                      <a href="apartment1.html">Sea Model Unit 2436</a>
+                                    <Link to="/apt">Sea Model Unit 2423</Link>
                                   </div>
                                   <a>Price: $2600</a>
                                   <a>3 Bed, 2 Bath</a>

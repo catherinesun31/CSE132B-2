@@ -90,11 +90,11 @@ class Login extends React.Component {
 
     if (user.isLeasingRep) {
 
-      browserHistory.push("/office/app-approval");
+      browserHistory.push("app-turnin-apv");
     
     } else {
 
-      browserHistory.push("/renter/group");
+      browserHistory.push("group");
     }
   }
 
