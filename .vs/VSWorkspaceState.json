@@ -1,0 +1,20 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\CSE132B-2",
+    "\\CSE132B-2\\src",
+    "\\CSE132B-2\\src\\components",
+    "\\CSE132B-2\\src\\components\\common",
+    "\\CSE132B-2\\src\\components\\course",
+    "\\CSE132B-2\\src\\components\\entry",
+    "\\CSE132B-2\\src\\components\\office",
+    "\\CSE132B-2\\src\\components\\renter",
+    "\\CSE132B-2\\src\\img",
+    "\\CSE132B-2\\src\\reducers",
+    "\\CSE132B-2\\src\\selectors",
+    "\\CSE132B-2\\src\\styles",
+    "\\CSE132B-2\\tools"
+  ],
+  "SelectedNode": "\\CSE132B-2\\src\\styles\\account-stylesheet.css",
+  "PreviewInSolutionExplorer": false
+}

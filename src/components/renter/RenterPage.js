@@ -4,6 +4,7 @@ import Header from '../common/Header';
 import ProfileModal from '../common/ProfileModal';
 import TodoList from '../common/TodoList';
 import '../../styles/main-stylesheet.css';
+import '../../styles/chat-stylesheet.css';
 
 
 class RenterPage extends React.Component {
