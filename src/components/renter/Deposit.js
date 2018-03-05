@@ -1,22 +1,50 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router';
 import Header from '../common/Header';
 import ProfileModal from '../common/ProfileModal';
 import TodoList from '../common/TodoList';
+import Launcher from '../common/Launcher';
+import messageHistory from '../common/messageHistory';
 import '../../styles/deposit-stylesheet.css';
 import '../../styles/main-stylesheet.css';
-import '../../styles/chat-stylesheet.css';
+import '../../styles';
 
 
 
 class Deposit extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            messageList: messageHistory,
+            newMessagesCount: 0,
+            isOpen: false
+          };
+      }
+     
+      _onMessageWasSent(message) {
+        this.setState({
+          messageList: [...this.state.messageList, message]
+        });
+      }
+     
+      _sendMessage(text) {
+        if (text.length > 0) {
+          this.setState({
+            messageList: [...this.state.messageList, {
+              author: 'them',
+              type: 'text',
+              data: { text }
+            }]
+          });
+        }
+      }
   render() {
     return (
       <div className="main-body">
         <Header loggedOn/>
         <TodoList userType="renter" />
         <ProfileModal />
-
+        
         <div className="app-section content-section">
             <div className="header group-header">
                 <h2>Pay Deposit</h2>
@@ -65,11 +93,15 @@ class Deposit extends React.Component {
             </div>
         </div>
         </div>
-        <div className="messages" id = "messages">Apartment Chat</div>
-        <form className="message-form" >
-        <input className="message-form__input" placeholder="Type a message.." type="text" id="message-id" />
-        <input className="message-form__button" value="Send" type="button" onClick="sendMessage();" />
-        </form>
+        <Launcher
+            agentProfile={{
+                teamName: 'Apartment Chat',
+                imageURL: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
+            }}
+            onMessageWasSent={this._onMessageWasSent.bind(this)}
+            messageList={this.state.messageList}
+            showEmoji
+                />
       </div>
       
     );
