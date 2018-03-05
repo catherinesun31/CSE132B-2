@@ -5,3 +5,10 @@ sshkey
 sshkey.pub
 
 .vs
+
+.vs/CSE134BNew/v15/.suo
+.vs/ProjectSettings.json
+.vs/VSWorkspaceState.json
+.vs/slnx.sqlite
+
+CSE132B-2
