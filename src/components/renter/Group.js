@@ -6,8 +6,6 @@ import TodoList from '../common/TodoList';
 import profile from '../../img/profile.png';
 import options from '../../img/options.png';
 import '../../styles/group-stylesheet.css';
-import '../../styles/chat-stylesheet.css';
-
 
 
 class Group extends React.Component {
@@ -52,11 +50,6 @@ class Group extends React.Component {
             </ol>
           </div>
           </div>
-          <div className="messages" id = "messages">Apartment Chat</div>
-        <form className="message-form" >
-        <input className="message-form__input" placeholder="Type a message.." type="text" id="message-id" />
-        <input className="message-form__button" value="Send" type="button" onClick="sendMessage();" />
-        </form>
       </div>
       
     );
