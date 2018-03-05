@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import TextMessage from './TextMessage'
 import EmojiMessage from './EmojiMessage'
-import chatIconUrl from './../../assets/chat-icon.svg'
+import chatIconUrl from './../../assets/chat-icon.png'
 
 
 class Message extends Component {

@@ -5,10 +5,39 @@ import ProfileModal from '../common/ProfileModal';
 import TodoList from '../common/TodoList';
 import '../../styles/application-stylesheet.css';
 import '../../styles/main-stylesheet.css';
+import '../../styles';
+import Launcher from '../common/Launcher';
+import messageHistory from '../common/messageHistory';
 
 
 
 class SignLease extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            messageList: messageHistory,
+            newMessagesCount: 0,
+            isOpen: false
+          };
+      }
+     
+      _onMessageWasSent(message) {
+        this.setState({
+          messageList: [...this.state.messageList, message]
+        });
+      }
+     
+      _sendMessage(text) {
+        if (text.length > 0) {
+          this.setState({
+            messageList: [...this.state.messageList, {
+              author: 'them',
+              type: 'text',
+              data: { text }
+            }]
+          });
+        }
+      }
   render() {
     return (
       <div className="main-body">
@@ -41,7 +70,17 @@ class SignLease extends React.Component {
               
           </div>
         </div>
+        <Launcher
+            agentProfile={{
+                teamName: 'Apartment Chat',
+                imageURL: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
+            }}
+            onMessageWasSent={this._onMessageWasSent.bind(this)}
+            messageList={this.state.messageList}
+            showEmoji
+                />
       </div>
+      
       
     );
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import chatIconUrl from './../../assets/chat-icon.svg';
+import chatIconUrl from './../../assets/chat-icon.png';
 
 const TextMessage = (props) => {
   return <div className="sc-message--text">{props.data.text}</div>
