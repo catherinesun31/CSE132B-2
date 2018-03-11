@@ -10,4 +10,4 @@ export default [
     {type: 'text', author: "me", data: { text: "Great! How about for you?"} },
     {type: 'text', author: "them", data: { text: "I've got everything done!"} },
     {type: 'emoji', author: "me", data: { emoji: "😋"} }
-  ]
+  ];

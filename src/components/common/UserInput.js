@@ -12,6 +12,9 @@ class UserInput extends Component {
     this.state = {
       inputActive: false
     };
+    this._submitText = this._submitText.bind(this); 
+    this._handleEmojiPicked = this._handledEmojiPicker.bind(this);
+    this.handleKey = this.handleKey.bind(this);
   }
 
   handleKey(event) {
@@ -50,7 +53,7 @@ class UserInput extends Component {
           onFocus={() => { this.setState({ inputActive: true }); }}
           onBlur={() => { this.setState({ inputActive: false }); }}
           ref={(e) => { this.userInput = e; }}
-          onKeyDown={this.handleKey.bind(this)}
+          onKeyDown={this.handleKey}
           contentEditable="true"
           placeholder="Write a reply..."
           className="sc-user-input--text"
@@ -59,10 +62,10 @@ class UserInput extends Component {
         <div className="sc-user-input--buttons">
           <div className="sc-user-input--button"></div>
           <div className="sc-user-input--button">
-            {this.props.showEmoji && <EmojiIcon onEmojiPicked={this._handleEmojiPicked.bind(this)} />}
+            {this.props.showEmoji && <EmojiIcon onEmojiPicked={this._handleEmojiPicked} />}
           </div>
           <div className="sc-user-input--button">
-            <SendIcon onClick={this._submitText.bind(this)} />
+            <SendIcon onClick={this._submitText} />
           </div>
         </div>
       </form>

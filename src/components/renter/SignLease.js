@@ -19,6 +19,7 @@ class SignLease extends React.Component {
             newMessagesCount: 0,
             isOpen: false
           };
+          this._onMessageWasSent=this._onMessageWasSent.bind(this);
       }
      
       _onMessageWasSent(message) {
@@ -75,7 +76,7 @@ class SignLease extends React.Component {
                 teamName: 'Apartment Chat',
                 imageURL: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
             }}
-            onMessageWasSent={this._onMessageWasSent.bind(this)}
+            onMessageWasSent={this._onMessageWasSent}
             messageList={this.state.messageList}
             showEmoji
                 />

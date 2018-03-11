@@ -1,8 +1,14 @@
-import React, { Component } from 'react'
+import React, {PropTypes, Component } from 'react';
 
 
 const EmojiMessage = (props) => {
-  return <div className="sc-message--emoji">{props.data.emoji}</div>
-}
+  return <div className="sc-message--emoji">{props.data.emoji}</div>;
+};
 
-export default EmojiMessage
+EmojiMessage.propTypes = {
+  data: PropTypes.object,
+  emoji: PropTypes.string
+};
+
+
+export default EmojiMessage;

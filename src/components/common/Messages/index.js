@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import TextMessage from './TextMessage'
-import EmojiMessage from './EmojiMessage'
-import chatIconUrl from './../../assets/chat-icon.png'
+import React, {PropTypes, Component } from 'react';
+import TextMessage from './TextMessage';
+import EmojiMessage from './EmojiMessage';
+import chatIconUrl from './../../assets/chat-icon.png';
 
 
 class Message extends Component {
@@ -9,9 +9,9 @@ class Message extends Component {
   _renderMessageOfType(type) {
     switch(type) {
       case 'text':
-        return <TextMessage {...this.props.message} />
+        return <TextMessage {...this.props.message} />;
       case 'emoji':
-        return <EmojiMessage {...this.props.message} />
+        return <EmojiMessage {...this.props.message} />;
     }
   }
 
@@ -28,8 +28,15 @@ class Message extends Component {
           }}></div>
           {this._renderMessageOfType(this.props.message.type)}
         </div>
-      </div>)
+      </div>);
   }
 }
 
-export default Message
+Message.propTypes = {
+  message: PropTypes.object,
+  author: PropTypes.string,
+  type:PropTypes.string
+};
+
+
+export default Message;

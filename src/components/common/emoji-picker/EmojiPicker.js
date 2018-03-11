@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {PropTypes, Component } from 'react';
 import EmojiConvertor from 'emoji-js';
 import emojiData from './emojiData';
 
@@ -56,5 +56,11 @@ class EmojiPicker extends Component {
     );
   }
 }
+
+EmojiPicker.propTypes = {
+  onBlur: PropTypes.func,
+  onEmojiPicked: PropTypes.func
+};
+
 
 export default EmojiPicker;

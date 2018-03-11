@@ -10,6 +10,8 @@ class EmojiIcon extends Component {
     this.state = {
       isActive: false
     };
+    this._openPicker = this._openPicker.bind(this);
+    this._handlePickerBlur = this._handlePickerBlue.bind(this);
   }
 
   _handlePickerBlur() {
@@ -28,14 +30,14 @@ class EmojiIcon extends Component {
   render() {
     return (
       <div className="sc-user-input--picker-wrapper">
-      { this.state.isActive && 
+      {this.state.isActive && 
         <EmojiPicker 
           onEmojiPicked={this.props.onEmojiPicked}
-          onBlur={this._handlePickerBlur.bind(this)}
+          onBlur={this._handlePickerBlur}
         />
       }
       <button
-        onClick={this._openPicker.bind(this)}
+        onClick={this._openPicker}
         className="sc-user-input--emoji-icon-wrapper"
       >
         <svg
@@ -71,8 +73,12 @@ class EmojiIcon extends Component {
         </svg>
       </button>
       </div>
-  )}
+  );}
 }
 
+EmojiIcon.propTypes = {
+  onEmojiPicked: PropTypes.func,
+  isActive: PropTypes.func
+};
 
 export default EmojiIcon;
