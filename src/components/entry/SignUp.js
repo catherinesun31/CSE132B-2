@@ -1,33 +1,13 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {browserHistory} from 'react-router';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as accountActions from '../../actions/accountActions';
 import TextInput from '../common/TextInput';
 import CheckBoxInput from '../common/CheckBoxInput';
 import Header from '../common/Header';
 import '../../styles/account-stylesheet.css';
 
-let apartments = ["Axiom La Jolla", "Casa Mira View", "Costa Verde", 
-    "Regents La Jolla", "Renaissance Apartments"];
-
-let userData = [
-  {
-    userName: "jcruz",
-    apt: "Axiom La Jolla",
-    fName: "Jonah",
-    lName: "Cruz",
-    email: "jcruz@example.com",
-    password: "12345",
-    isLeasingRep: false
-  }, 
-  {
-    userName: "leaser",
-    apt: "Axiom La Jolla",
-    fName: "Lisa",
-    lName: "Leaser",
-    email: "lisa@example.com",
-    password: "54321",
-    isLeasingRep: true
-  }
-];
 
 class SignUp extends React.Component {
 
@@ -43,6 +23,7 @@ class SignUp extends React.Component {
       leasingRep: false 
     };
 
+    this.createAccountObject = this.createAccountObject.bind(this);
     this.signUp = this.signUp.bind(this);
     this.checkSignUpValues = this.checkSignUpValues.bind(this);
     this.verifyUniqueAccount = this.verifyUniqueAccount.bind(this);
@@ -66,6 +47,8 @@ class SignUp extends React.Component {
   populateApts () {
 
     let apts = document.getElementById("apts");
+
+    let apartments = this.props.apts;
   
     if (apts != null) {
       apartments.forEach(function(apartment) {
@@ -89,7 +72,7 @@ class SignUp extends React.Component {
     let passwordInput = this.state.password;
     let leasingRepInput = this.state.leasingRep;
 
-    let signUpValues = [fNameInput, lNameInput, userNameInput,
+    let signUpValues = [userNameInput, fNameInput, lNameInput,
               emailInput, passwordInput];
 
     if (!this.checkSignUpValues (aptInput, signUpValues)) {
@@ -100,14 +83,33 @@ class SignUp extends React.Component {
       return;
     }
 
-    if (leasingRepInput) {
+    let newAccount = this.createAccountObject(aptInput, signUpValues, leasingRepInput);
+
+    this.props.actions.createAccount(newAccount)
+      .then(() => this.props.actions.signInAccount(newAccount)
+        .then(() => {
+          if (newAccount.isLeasingRep) {
+
+            browserHistory.push("app-turnin-apv");
+          
+          } else {
+      
+            browserHistory.push("group");
+          }
+        })
+        .catch(error => {
+          alert("sign in user failed");
+        })
+      .catch(error => alert("create account failed")));
+
+    /*if (leasingRepInput) {
 
       browserHistory.push("app-turnin-apv");
     
     } else {
 
       browserHistory.push("group");
-    }
+    }*/
     
   }
 
@@ -116,7 +118,7 @@ class SignUp extends React.Component {
    */
   checkSignUpValues (aptInput, signInValues) {
 
-    if (!apartments.includes(aptInput)) {
+    if (!this.props.apts.includes(aptInput)) {
       alert ("Please select an existing apartment complex");
       return false;
     }
@@ -152,6 +154,8 @@ class SignUp extends React.Component {
    */
   getUser (userNameInput) {
 
+    let userData = this.props.accounts;
+
     for (let i = 0; i < userData.length; i++) {
       if (userData[i].userName == userNameInput) {
         return userData[i];
@@ -159,6 +163,21 @@ class SignUp extends React.Component {
     }
 
     return null;
+  }
+
+  createAccountObject (aptInput, signInValues, leasingRepInput) {
+
+    let newUser = {
+      userName: signInValues[0],
+      apt: aptInput,
+      fName: signInValues[1],
+      lName: signInValues[2],
+      email: signInValues[3],
+      password: signInValues[4],
+      isLeasingRep: leasingRepInput
+    };
+
+    return newUser;
   }
 
   setApt (event) {
@@ -210,6 +229,7 @@ class SignUp extends React.Component {
   }
 
   render() {
+
     return (
 
       <div>
@@ -276,4 +296,24 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+
+SignUp.propTypes = {
+  apts: PropTypes.array.isRequired,
+  accounts: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state, ownProps) {
+  return {
+    apts: state.apts,
+    accounts: state.accounts
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(accountActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

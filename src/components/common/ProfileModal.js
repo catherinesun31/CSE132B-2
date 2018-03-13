@@ -1,8 +1,11 @@
 import React, {PropTypes} from 'react';
 import '../../styles/main-stylesheet.css';
 import {browserHistory} from 'react-router';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as accountActions from '../../actions/accountActions';
 
-let userData = 
+/*let userData = 
   {
     userName: "jcruz",
     apt: "Axiom La Jolla",
@@ -11,7 +14,7 @@ let userData =
     email: "jcruz@example.com",
     password: "12345",
     isLeasingRep: false
-  };
+  };*/
 
 class ProfileModal extends React.Component {
   constructor(props) {
@@ -34,6 +37,8 @@ class ProfileModal extends React.Component {
 
     let array = [];
 
+    let userData = this.props.login;
+
     array.push("Username: " + userData.userName);
     array.push("Apartment: " + userData.apt);
     array.push("First Name: " + userData.fName);
@@ -54,7 +59,14 @@ class ProfileModal extends React.Component {
 
   logout () {
 
-    browserHistory.push("");
+    this.props.actions.signOutAccount()
+      .then(() => {
+        browserHistory.push("");
+      })
+      .catch(error => {
+        alert("failed");
+      });
+    
   }
 
   close () {
@@ -86,9 +98,24 @@ class ProfileModal extends React.Component {
 }
 
 ProfileModal.propTypes = {
+  login: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
   getProfileInfo: PropTypes.func,
   logout: PropTypes.func
 };
 
-export default ProfileModal;
+
+function mapStateToProps(state, ownProps) {
+  return {
+    login: state.login
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(accountActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileModal);

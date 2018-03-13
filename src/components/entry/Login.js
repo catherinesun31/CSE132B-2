@@ -1,32 +1,12 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {browserHistory} from 'react-router';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as accountActions from '../../actions/accountActions';
 import TextInput from '../common/TextInput';
 import Header from '../common/Header';
 import '../../styles/account-stylesheet.css';
 
-let apartments = ["Axiom La Jolla", "Casa Mira View", "Costa Verde", 
-    "Regents La Jolla", "Renaissance Apartments"];
-
-let userData = [
-  {
-    userName: "jcruz",
-    apt: "Axiom La Jolla",
-    fName: "Jonah",
-    lName: "Cruz",
-    email: "jcruz@example.com",
-    password: "12345",
-    isLeasingRep: false
-  }, 
-  {
-    userName: "leaser",
-    apt: "Axiom La Jolla",
-    fName: "Lisa",
-    lName: "Leaser",
-    email: "lisa@example.com",
-    password: "54321",
-    isLeasingRep: true
-  }
-];
 
 class Login extends React.Component {
 
@@ -36,7 +16,7 @@ class Login extends React.Component {
       apt: '',
       userName: '',
       password: '',
-      leasingRep: false 
+      leasingRep: false
     };
 
     this.populateApts = this.populateApts.bind(this);
@@ -60,6 +40,11 @@ class Login extends React.Component {
 
     let apts = document.getElementById("apts");
   
+    let apartments = this.props.apts;
+    //alert(JSON.stringify(this.props.accounts[0]));
+    //alert(JSON.stringify(this.props.accounts[0]));
+    //alert(apartments);
+
     if (apts != null) {
       apartments.forEach(function(apartment) {
            let option = document.createElement("option");
@@ -86,16 +71,31 @@ class Login extends React.Component {
       return;
     }
 
-    let user = userData.find(function (user) { return user.userName === userNameInput; });
+    let user = this.getUser(userNameInput);
 
-    if (user.isLeasingRep) {
+    this.props.actions.signInAccount(user)
+      .then(() => {
+        if (user.isLeasingRep) {
+
+          browserHistory.push("app-turnin-apv");
+        
+        } else {
+    
+          browserHistory.push("group");
+        }
+      })
+      .catch(error => {
+        alert("failed");
+      });
+
+    /*if (user.isLeasingRep) {
 
       browserHistory.push("app-turnin-apv");
     
     } else {
 
       browserHistory.push("group");
-    }
+    }*/
   }
 
   /**
@@ -103,8 +103,8 @@ class Login extends React.Component {
    */
   checkSignInValues (aptInput, userNameInput, passwordInput) {
 
-    if (aptInput == "" || !apartments.includes(aptInput)) {
-      alert ("Please select an apartment complex");
+    if (aptInput == "" || !this.props.apts.includes(aptInput)) {
+      alert ("Please select an existing apartment complex");
       return false;
 
     } else if (userNameInput == "") {
@@ -146,6 +146,8 @@ class Login extends React.Component {
    */
   getUser (userNameInput) {
 
+    let userData = this.props.accounts;
+
     for (let i = 0; i < userData.length; i++) {
       if (userData[i].userName == userNameInput) {
         return userData[i];
@@ -156,6 +158,7 @@ class Login extends React.Component {
   }
 
   setApt (event) {
+    //alert(JSON.stringify(this.props.accounts[0]));
     event.persist();
     this.setState((prevState) => {
       return {apt: event.target.value};
@@ -223,4 +226,27 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+
+Login.propTypes = {
+  apts: PropTypes.array.isRequired,
+  accounts: PropTypes.array.isRequired,
+  login: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state, ownProps) {
+  return {
+    apts: state.apts,
+    accounts: state.accounts,
+    login: state.login
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(accountActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
