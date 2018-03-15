@@ -13,7 +13,7 @@ class UserInput extends Component {
       inputActive: false
     };
     this._submitText = this._submitText.bind(this); 
-    this._handleEmojiPicked = this._handledEmojiPicker.bind(this);
+    this._handleEmojiPicked = this._handleEmojiPicked.bind(this);
     this.handleKey = this.handleKey.bind(this);
   }
 

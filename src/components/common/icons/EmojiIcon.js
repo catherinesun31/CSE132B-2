@@ -11,7 +11,7 @@ class EmojiIcon extends Component {
       isActive: false
     };
     this._openPicker = this._openPicker.bind(this);
-    this._handlePickerBlur = this._handlePickerBlue.bind(this);
+    this._handlePickerBlur = this._handlePickerBlur.bind(this);
   }
 
   _handlePickerBlur() {

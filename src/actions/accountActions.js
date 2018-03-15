@@ -24,6 +24,7 @@ export function signInAccount (account) {
     return AccountApi.signInAccount(account).then(account => {
       dispatch(signInAccountSuccess(account));
     }).catch(error => {
+      alert(error);
       throw(error);
     });
   };
