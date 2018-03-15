@@ -72,7 +72,7 @@ describe('Acccount Reducer', () => {
         isLeasingRep: true
       }
     ];
-;
+
     const action = actions.loadAccountsSuccess(accounts);
 
     const newState = accountReducer(initialState, action);

@@ -11,7 +11,7 @@ describe('Apt Reducer', () => {
 
     const apts = ["Axiom La Jolla", "Casa Mira View", "Costa Verde", 
     "Regents La Jolla", "Renaissance Apartments"];
-;
+
     const action = actions.loadAptsSuccess(apts);
 
     const newState = aptReducer(initialState, action);
