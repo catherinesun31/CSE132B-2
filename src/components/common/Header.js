@@ -4,6 +4,8 @@ import LoadingDots from './LoadingDots';
 import LoginControl from './LoginControl';
 import '../../styles/main-stylesheet.css';
 import mainLogo from'../../img/logo.png';
+import LogoStyle from '../../styles/LogoStyle';
+import NavStyle from '../../styles/NavStyle';
 
 class Header extends React.Component {
 
@@ -31,8 +33,8 @@ class Header extends React.Component {
         <Link to="/about" activeClassName="active">About</Link>
         {loading && <LoadingDots interval={100} dots={20}/>}
       </nav>*/
-      <div className="nav">
-        <img src={mainLogo} className="logo"></img>
+      <div className="nav" style={NavStyle.nav}>
+        <img src={mainLogo} style={LogoStyle.nav}></img>
         
         <div className="title">
           <h2 id="aptTitle"></h2>
