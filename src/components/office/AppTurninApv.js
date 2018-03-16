@@ -1,14 +1,49 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import Header from '../common/Header';
 import ProfileModal from '../common/ProfileModal';
 import TodoList from '../common/TodoList';
 import '../../styles/application-stylesheet.css';
 import '../../styles/main-stylesheet.css';
+import '../../styles';
+import Launcher from '../common/Launcher';
+import messageHistory from '../common/messageHistory';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as messageActions from '../../actions/messageActions';
+
 
 
 
 class AppTurninApv extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            messageList: this.props.messages,
+            newMessagesCount: 0,
+            isOpen: false
+          };
+          this._onMessageWasSent=this._onMessageWasSent.bind(this);
+      }
+     
+      _onMessageWasSent(message) {
+        this.setState({
+          messageList: [...this.state.messageList, message]
+        });
+        this.props.actions.addMessage(message);
+      }
+     
+      _sendMessage(text) {
+        if (text.length > 0) {
+          this.setState({
+            messageList: [...this.state.messageList, {
+              author: 'them',
+              type: 'text',
+              data: { text }
+            }]
+          });
+        }
+          }
   render() {
     return (
       <div className="main-body">
@@ -57,10 +92,36 @@ class AppTurninApv extends React.Component {
                   </li>
               </ol>
           </div>
+          <Launcher
+            agentProfile={{
+                teamName: 'Apartment #253 Chat',
+                imageURL: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
+            }}
+            //onMessageWasSent={this._onMessageWasSent.bind(this)}
+            onMessageWasSent={this._onMessageWasSent}
+            messageList={this.state.messageList}
+            showEmoji
+                />
       </div>
-      
     );
   }
 }
 
-export default AppTurninApv;
+AppTurninApv.propTypes = {
+    messages: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired
+};
+  
+function mapStateToProps(state, ownProps) {
+    return {
+      messages: state.messages
+    };
+  }
+  
+  function mapDispatchToProps(dispatch) {
+    return {
+      actions: bindActionCreators(messageActions, dispatch)
+    };
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(AppTurninApv);
