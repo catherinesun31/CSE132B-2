@@ -8,14 +8,17 @@ import '../../styles/main-stylesheet.css';
 import '../../styles';
 import Launcher from '../common/Launcher';
 import messageHistory from '../common/messageHistory';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as messageActions from '../../actions/messageActions';
 
 
 
 class RentInsur extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            messageList: messageHistory,
+            messageList: this.props.messages,
             newMessagesCount: 0,
             isOpen: false
           };
@@ -26,6 +29,7 @@ class RentInsur extends React.Component {
         this.setState({
           messageList: [...this.state.messageList, message]
         });
+        this.props.actions.addMessage(message);
       }
      
       _sendMessage(text) {
@@ -82,4 +86,16 @@ class RentInsur extends React.Component {
   }
 }
 
-export default RentInsur;
+function mapStateToProps(state, ownProps) {
+    return {
+      messages: state.messages
+    };
+  }
+  
+  function mapDispatchToProps(dispatch) {
+    return {
+      actions: bindActionCreators(messageActions, dispatch)
+    };
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(RentInsur);

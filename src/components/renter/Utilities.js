@@ -8,14 +8,18 @@ import '../../styles/utilities-stylesheet.css';
 import '../../styles/main-stylesheet.css';
 import '../../styles';
 import messageHistory from '../common/messageHistory';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as messageActions from '../../actions/messageActions';
+
 
 
 
 class Utilities extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            messageList: messageHistory,
+            messageList: this.props.messages,
             newMessagesCount: 0,
             isOpen: false
           };
@@ -26,6 +30,7 @@ class Utilities extends React.Component {
         this.setState({
           messageList: [...this.state.messageList, message]
         });
+        this.props.actions.addMessage(message);
       }
      
       _sendMessage(text) {
@@ -90,5 +95,16 @@ class Utilities extends React.Component {
     );
   }
 }
-
-export default Utilities;
+function mapStateToProps(state, ownProps) {
+    return {
+      messages: state.messages
+    };
+  }
+  
+  function mapDispatchToProps(dispatch) {
+    return {
+      actions: bindActionCreators(messageActions, dispatch)
+    };
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Utilities);

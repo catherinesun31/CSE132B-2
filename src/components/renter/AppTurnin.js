@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import Header from '../common/Header';
 import ProfileModal from '../common/ProfileModal';
@@ -8,13 +8,16 @@ import '../../styles/main-stylesheet.css';
 import '../../styles';
 import Launcher from '../common/Launcher';
 import messageHistory from '../common/messageHistory';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as messageActions from '../../actions/messageActions';
 
 
 class AppTurnin extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            messageList: messageHistory,
+            messageList: this.props.messages,
             newMessagesCount: 0,
             isOpen: false
           };
@@ -25,6 +28,7 @@ class AppTurnin extends React.Component {
         this.setState({
           messageList: [...this.state.messageList, message]
         });
+        this.props.actions.addMessage(message);
       }
      
       _sendMessage(text) {
@@ -37,7 +41,7 @@ class AppTurnin extends React.Component {
             }]
           });
         }
-      }
+          }
   render() {
     return (
       <div className="main-body">
@@ -70,6 +74,7 @@ class AppTurnin extends React.Component {
                 teamName: 'Apartment Chat',
                 imageURL: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
             }}
+            //onMessageWasSent={this._onMessageWasSent.bind(this)}
             onMessageWasSent={this._onMessageWasSent}
             messageList={this.state.messageList}
             showEmoji
@@ -79,4 +84,21 @@ class AppTurnin extends React.Component {
   }
 }
 
-export default AppTurnin;
+AppTurnin.propTypes = {
+    messages: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired
+};
+  
+function mapStateToProps(state, ownProps) {
+    return {
+      messages: state.messages
+    };
+  }
+  
+  function mapDispatchToProps(dispatch) {
+    return {
+      actions: bindActionCreators(messageActions, dispatch)
+    };
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(AppTurnin);

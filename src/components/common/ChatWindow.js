@@ -8,7 +8,6 @@ import ChatHeader from './ChatHeader';
 class ChatWindow extends Component {
     constructor(props) {
       super(props);
-      this.onUserInputSubmit = this.onUserInputSubmit.bind(this);
     }
 
     onUserInputSubmit(message) {
@@ -36,21 +35,14 @@ class ChatWindow extends Component {
             messages={messageList}
             imageUrl={this.props.agentProfile.imageUrl}
           />
-          <UserInput showEmoji={this.props.showEmoji} onSubmit={this.onUserInputSubmit}/>
+          <UserInput showEmoji={this.props.showEmoji} onSubmit={this.onUserInputSubmit.bind(this)}/>
         </div>
       );
     }
 }
 
 ChatWindow.propTypes = {
-  showEmoji: PropTypes.bool,
-  onUserInputSubmit: PropTypes.func,
-  messageList: PropTypes.arrayOf(PropTypes.object),
-  isOpen: PropTypes.func,
-  agentProfile: PropTypes.object,
-  teamName: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
-  onClose: PropTypes.func
-};
+  showEmoji: PropTypes.bool
+}
 
 export default ChatWindow;

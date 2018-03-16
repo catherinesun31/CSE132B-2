@@ -4,5 +4,6 @@ export default {
   apts: [],
   accounts: [],
   login: {},
+  messages: [],
   ajaxCallsInProgress: 0
 };

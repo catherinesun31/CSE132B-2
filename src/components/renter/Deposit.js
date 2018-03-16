@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import Header from '../common/Header';
 import ProfileModal from '../common/ProfileModal';
@@ -8,14 +8,17 @@ import messageHistory from '../common/messageHistory';
 import '../../styles/deposit-stylesheet.css';
 import '../../styles/main-stylesheet.css';
 import '../../styles';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as messageActions from '../../actions/messageActions';
 
 
 
 class Deposit extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            messageList: messageHistory,
+            messageList: this.props.messages,
             newMessagesCount: 0,
             isOpen: false
           };
@@ -26,6 +29,7 @@ class Deposit extends React.Component {
         this.setState({
           messageList: [...this.state.messageList, message]
         });
+        this.props.actions.addMessage(message);
       }
      
       _sendMessage(text) {
@@ -69,7 +73,7 @@ class Deposit extends React.Component {
                 </ol>
             </div>
         
-        <div className="box-holder">
+        <div className="deposit-box-holder">
             <div className="box-container">
                 <div className="box-header">
                     <h3>Payment Information</h3>
@@ -109,4 +113,16 @@ class Deposit extends React.Component {
   }
 }
 
-export default Deposit;
+function mapStateToProps(state, ownProps) {
+    return {
+      messages: state.messages
+    };
+  }
+  
+  function mapDispatchToProps(dispatch) {
+    return {
+      actions: bindActionCreators(messageActions, dispatch)
+    };
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Deposit);

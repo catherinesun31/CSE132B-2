@@ -1,4 +1,4 @@
-import React, {PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import Message from './Messages';
 
 class MessageList extends Component {
@@ -11,15 +11,10 @@ class MessageList extends Component {
     return (
       <div className="sc-message-list" ref={el => this.scrollList = el}>
         {this.props.messages.map((message, i) => {
-          return <Message message={message} key={i} />;
+          return <Message message={message} key={i} />
         })}
-      </div>);
+      </div>)
   }
 }
-MessageList.propTypes = {
-  messages: PropTypes.object,
-  map: PropTypes.object
-};
 
-
-export default MessageList;
+export default MessageList

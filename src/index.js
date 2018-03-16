@@ -9,6 +9,7 @@ import routes from './routes';
 import {loadCourses} from './actions/courseActions';
 import {loadAuthors} from './actions/authorActions';
 import {loadAccounts} from './actions/accountActions';
+import {loadMessages} from './actions/messageActions';
 import {loadApts} from './actions/aptActions';
 import './styles/styles.css'; //Webpack can import CSS files too!
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -19,6 +20,7 @@ store.dispatch(loadCourses());
 store.dispatch(loadAuthors());
 store.dispatch(loadAccounts());
 store.dispatch(loadApts());
+store.dispatch(loadMessages());
 
 render(
   <Provider store={store}>
